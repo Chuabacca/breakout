@@ -1,7 +1,7 @@
 # Breakout
 A simple 2D game written in pure Javascript created from [this MDN tutorial.](https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript)
 
-<center>![Breakout Screen Shot](/screen-shot.png)</center>
+<img src="/screen-shot.png" alt="Breakout Screen Shot" style="margin:0,auto;width:300px;">
 
 ## To Play
 <ol>
