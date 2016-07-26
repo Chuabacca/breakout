@@ -51,6 +51,8 @@
   var score = 0;
   var lives = 3;
 
+  var paused = true;
+
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
 
@@ -60,6 +62,14 @@
       }
       else if(e.keyCode == 37) {
           leftPressed = true;
+      }
+      else if(e.keyCode == 80) {
+          if(paused == true) {
+            paused = false;
+          }
+          else {
+            paused = true;
+          }
       }
   }
 
@@ -126,15 +136,21 @@ function collisionDetection() {
 }
 
 function drawScore() {
-    ctx.font = "16px Arial";
+    ctx.font = "16px Helvetica";
     ctx.fillStyle = "#FF6000";
-    ctx.fillText("Score: "+score, 8, 20);
+    ctx.fillText("Score: "+score, 15, 20);
 }
 
 function drawLives() {
-    ctx.font = "16px Arial";
+    ctx.font = "16px Helvetica";
     ctx.fillStyle = "#FF6000";
-    ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+    ctx.fillText("Lives: "+lives, canvas.width-80, 20);
+}
+
+function drawPaused() {
+  ctx.font = "24px Helvetica";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText("PAUSED", canvas.width/2-45, canvas.height/2);
 }
 
   function getRandomColor() {
@@ -147,6 +163,7 @@ function drawLives() {
   }
 
   function draw() {
+    if(paused == false) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawBricks();
       drawBall();
@@ -195,6 +212,10 @@ function drawLives() {
       y += dy;
 
       requestAnimationFrame(draw);
+    }
+    else {
+      drawPaused();
+    }
   }
 
   document.addEventListener("mousemove", mouseMoveHandler, false);
