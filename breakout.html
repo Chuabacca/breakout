@@ -51,10 +51,21 @@
   var score = 0;
   var lives = 3;
 
-  var paused = true;
+  var paused = false;
+  var gameOver = false;
 
   document.addEventListener("keydown", keyDownHandler, false);
   document.addEventListener("keyup", keyUpHandler, false);
+
+  function pause() {
+    if(!paused) {
+      paused = true;
+    }
+    else {
+      paused = false;
+      draw();
+    }
+  }
 
   function keyDownHandler(e) {
       if(e.keyCode == 39) {
@@ -64,12 +75,7 @@
           leftPressed = true;
       }
       else if(e.keyCode == 80) {
-          if(paused == true) {
-            paused = false;
-          }
-          else {
-            paused = true;
-          }
+          pause();
       }
   }
 
@@ -114,7 +120,7 @@
           }
         }
     }
-}
+  }
 
 function collisionDetection() {
     for(c=0; c<brickColumnCount; c++) {
@@ -153,6 +159,12 @@ function drawPaused() {
   ctx.fillText("PAUSED", canvas.width/2-45, canvas.height/2);
 }
 
+function drawGameOver() {
+  ctx.font = "24px Helvetica";
+  ctx.fillStyle = "#ff2d2d";
+  ctx.fillText("GAME OVER", canvas.width/2-45, canvas.height/2);
+}
+
   function getRandomColor() {
       var letters = '0123456789ABCDEF'.split('');
       var color = '#';
@@ -163,7 +175,6 @@ function drawPaused() {
   }
 
   function draw() {
-    if(paused == false) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawBricks();
       drawBall();
@@ -188,7 +199,8 @@ function drawPaused() {
           else {
             lives--;
             if(!lives) {
-              alert("GAME OVER");
+              drawGameOver();
+              gameOver = true;
               document.location.reload();
             }
             else {
@@ -211,12 +223,12 @@ function drawPaused() {
       x += dx;
       y += dy;
 
-      requestAnimationFrame(draw);
-    }
-    else {
-      drawPaused();
-    }
+      if(!paused && !gameOver) {
+        requestAnimationFrame(draw);
+      }
+
   }
+
 
   document.addEventListener("mousemove", mouseMoveHandler, false);
   function mouseMoveHandler(e) {
@@ -234,6 +246,7 @@ function drawPaused() {
   }
 
 draw();
+
 </script>
 
 </body>
