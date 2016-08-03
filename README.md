@@ -8,4 +8,5 @@ A simple 2D game written in pure Javascript created from [this MDN tutorial.](ht
 <li>Download the breakout.html file.</li>
 <li>Point your browser to the location of the saved file. (e.g. file:///Users/username/downloads/breakout.html)
 <li>Control the movement of the paddle with your keyboard (L/R arrow keys) or mouse.
+<li>Press "p" to pause the game.
 </ol>
